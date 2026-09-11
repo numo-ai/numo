@@ -1,0 +1,24 @@
+{
+  "name": "@numo/auth",
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    "./server": "./src/server.ts"
+  },
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "@numo/db": "workspace:*",
+    "@numo/env": "workspace:*",
+    "@numo/mailer": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@numo/config": "workspace:*",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}

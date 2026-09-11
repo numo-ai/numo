@@ -29,22 +29,12 @@
       "cache": false,
       "interactive": true
     },
+    "db:deploy": {
+      "cache": false
+    },
     "db:reset": {
       "cache": false,
       "interactive": true
-    },
-    "db:start": {
-      "cache": false
-    },
-    "db:stop": {
-      "cache": false
-    },
-    "db:watch": {
-      "cache": false,
-      "persistent": true
-    },
-    "db:down": {
-      "cache": false
     }
   }
 }
