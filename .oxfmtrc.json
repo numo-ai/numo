@@ -1,0 +1,8 @@
+{
+  "semi": false,
+  "singleQuote": false,
+  "sortImports": true,
+  "jsxSingleQuote": false,
+  "trailingComma": "es5",
+  "ignorePatterns": []
+}

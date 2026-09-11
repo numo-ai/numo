@@ -1,0 +1,34 @@
+name: numo
+
+services:
+  postgres:
+    image: postgres:18
+    container_name: numo_postgres
+    environment:
+      POSTGRES_DB: numo
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+    ports:
+      - '5432:5432'
+    volumes:
+      - numo_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: numo_redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - numo_redis_data:/var/lib/redis
+    command: redis-server --requirepass docker --appendonly yes
+
+volumes:
+  numo_postgres_data:
+  numo_redis_data:
