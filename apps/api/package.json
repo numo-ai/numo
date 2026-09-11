@@ -1,0 +1,25 @@
+{
+  "name": "@numo/api",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.2",
+    "@numo/auth": "workspace:*",
+    "@numo/db": "workspace:*",
+    "@numo/env": "workspace:*",
+    "@numo/mailer": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "elysia": "^1.4.29",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@numo/config": "workspace:*",
+    "@numo/env": "workspace:*",
+    "@types/bun": "catalog:",
+    "typescript": "catalog:"
+  }
+}
