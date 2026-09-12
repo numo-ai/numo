@@ -1,39 +1,18 @@
 import { Input as InputPrimitive } from "@base-ui/react/input"
-import { type ComponentProps } from "react"
-import { cn, tv, type VariantProps } from "tailwind-variants"
+import { cn } from "tailwind-variants"
 
-const inputVariants = tv({
-  base: "min-w-0 py-1 transition rounded-md border border-input-border ease-in-out outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-  variants: {
-    variant: {
-      primary:
-        "bg-input text-input-foreground placeholder:text-muted-foreground focus-visible:border-input-focus",
-    },
-    size: {
-      sm: "text-xs h-8 gap-1.5 px-2.5",
-      md: "text-sm h-9 gap-2.5 px-3.5",
-      lg: "text-base h-10 gap-1.5 px-4.5",
-    },
-  },
-  defaultVariants: {
-    variant: "primary",
-    size: "md",
-  },
-})
-
-type InputVariants = VariantProps<typeof inputVariants>
-
-interface InputProps extends InputVariants, Omit<ComponentProps<"input">, "size"> {}
-
-function Input({ type, variant, size, className, ...props }: InputProps) {
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <InputPrimitive
-      data-slot="input"
       type={type}
-      className={cn(inputVariants({ variant, size }), className)}
+      data-slot="input"
+      className={cn(
+        "h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-2.5 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+        className
+      )}
       {...props}
     />
   )
 }
 
-export { Input, type InputVariants, inputVariants }
+export { Input }
