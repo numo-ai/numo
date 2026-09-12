@@ -7,7 +7,7 @@ import { toast } from "sonner"
 import { authClient } from "@/lib/auth-client"
 import { useLoginStore } from "@/store/login"
 
-export function LoginWithGoogle() {
+export function GoogleRedirect() {
   const { setMethod } = useLoginStore()
   const started = useRef(false)
 

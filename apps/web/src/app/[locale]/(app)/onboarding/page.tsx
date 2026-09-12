@@ -1,7 +1,7 @@
 export default function Page() {
   return (
     <div>
-      <span>Hello</span>
+      <span>Onboarding</span>
     </div>
   )
 }

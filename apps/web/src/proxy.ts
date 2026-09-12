@@ -22,45 +22,37 @@ const REDIRECT_WHEN_NOT_AUTHENTICATED = "/login"
 function getPathWithoutLocale(pathname: string): string {
   const segments = pathname.split("/")
   if (segments[1] && locales.includes(segments[1] as (typeof locales)[number])) {
-    // oxlint-disable-next-line no-constant-binary-expression
-    return `/${segments.slice(2).join("/")}` || "/"
+    const rest = segments.slice(2).join("/")
+    return rest ? `/${rest}` : "/"
   }
-  return pathname
+  return pathname || "/"
 }
 
-function getLocaleFromPath(pathname: string): string {
-  const segments = pathname.split("/")
-  if (segments[1] && locales.includes(segments[1] as (typeof locales)[number])) {
-    return segments[1]
-  }
-  return defaultLocale
+function hasSessionCookie(request: NextRequest) {
+  return Boolean(
+    request.cookies.get("numo.session_token") ??
+      request.cookies.get("__Secure-numo.session_token")
+  )
 }
 
 export function proxy(request: NextRequest) {
-  const pathname = request.nextUrl.pathname
-  const path = getPathWithoutLocale(pathname)
-  const locale = getLocaleFromPath(pathname)
-
+  const path = getPathWithoutLocale(request.nextUrl.pathname)
   const publicRoute = publicRoutes.find((route) => route.path === path)
-  const authToken = request.cookies.get("numo.session_token")
+  const isAuthenticated = hasSessionCookie(request)
 
-  if (!authToken && publicRoute) {
+  if (!isAuthenticated && publicRoute) {
     return I18nMiddleware(request)
   }
 
-  if (!authToken && !publicRoute) {
+  if (!isAuthenticated && !publicRoute) {
     const redirectUrl = request.nextUrl.clone()
-
-    redirectUrl.pathname = `/${locale}${REDIRECT_WHEN_NOT_AUTHENTICATED}`
-
+    redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED
     return NextResponse.redirect(redirectUrl)
   }
 
-  if (authToken && publicRoute && publicRoute.whenAuthenticated === "redirect") {
+  if (isAuthenticated && publicRoute && publicRoute.whenAuthenticated === "redirect") {
     const redirectUrl = request.nextUrl.clone()
-
-    redirectUrl.pathname = `/${locale}`
-
+    redirectUrl.pathname = "/"
     return NextResponse.redirect(redirectUrl)
   }
 

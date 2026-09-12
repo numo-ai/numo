@@ -1,22 +1,12 @@
 import type { Metadata } from "next"
 
 import "@numo/ui/globals.css"
-import { Inter_Tight, Hubot_Sans, Fraunces } from "next/font/google"
+import { Mona_Sans } from "next/font/google"
 
 import { RootProvider } from "./provider"
 
-const fontSans = Inter_Tight({
+const fontSans = Mona_Sans({
   variable: "--font-sans",
-  subsets: ["latin"],
-})
-
-const fontHeading = Hubot_Sans({
-  variable: "--font-heading",
-  subsets: ["latin"],
-})
-
-const fontSerif = Fraunces({
-  variable: "--font-serif",
   subsets: ["latin"],
 })
 
@@ -40,7 +30,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   return (
     <html
       lang={locale ?? "en"}
-      className={`${fontSans.variable} ${fontHeading.variable} ${fontSerif.variable} font-sans subpixel-antialiased`}
+      className={`${fontSans.variable} font-sans antialiased`}
       suppressHydrationWarning
     >
       <body>

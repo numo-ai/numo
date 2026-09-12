@@ -1,7 +1,7 @@
 import { create } from "zustand"
 
-type LoginMethod = "email" | "google" | null
-type EmailStep = "email" | "otp"
+type LoginMethod = "sign-up" | "google" | null
+type EmailStep = "sign-up" | "otp"
 
 interface LoginState {
   method: LoginMethod
@@ -15,14 +15,14 @@ interface LoginState {
 
 export const useLoginStore = create<LoginState>((set) => ({
   method: null,
-  emailStep: "email",
+  emailStep: "sign-up",
   email: null,
   setMethod: (method) =>
     set({
       method,
-      ...(method === null || method === "google" ? { emailStep: "email", email: null } : {}),
+      ...(method === null || method === "google" ? { emailStep: "sign-up", email: null } : {}),
     }),
   setEmailStep: (emailStep) => set({ emailStep }),
   setEmail: (email) => set({ email }),
-  resetEmailFlow: () => set({ emailStep: "email", email: null }),
+  resetEmailFlow: () => set({ emailStep: "sign-up", email: null }),
 }))
